@@ -61,7 +61,7 @@ module Slim
 
       opts.on('-l', '--locals Hash|YAML|JSON', String, 'Set local variables') do |locals|
         @options[:locals] =
-          if locals =~ /\A\s*\{\s*\p{Word}+:/
+          if locals.match?(/\A\s*\{\s*\p{Word}+:/)
             eval(locals)
           else
             require 'yaml'

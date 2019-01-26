@@ -62,7 +62,7 @@ module Slim
         raise ArgumentError, 'Shortcut requires :tag and/or :attr' unless (v[:attr] || v[:tag]) && (v.keys - [:attr, :tag, :additional_attrs]).empty?
         @tag_shortcut[k] = v[:tag] || options[:default_tag]
         if v.include?(:attr) || v.include?(:additional_attrs)
-          raise ArgumentError, 'You can only use special characters for attribute shortcuts' if k =~ /(\p{Word}|-)/
+          raise ArgumentError, 'You can only use special characters for attribute shortcuts' if k.match?(/(\p{Word}|-)/)
         end
         if v.include?(:attr)
           @attr_shortcut[k] = [v[:attr]].flatten
@@ -150,7 +150,7 @@ module Slim
     end
 
     def parse_line
-      if @line =~ /\A\s*\Z/
+      if @line.match?(/\A\s*\Z/)
         @stacks.last << [:newline]
         return
       end
@@ -268,7 +268,7 @@ module Slim
     end
 
     def parse_comment_block
-      while !@lines.empty? && (@lines.first =~ /\A\s*\Z/ || get_indent(@lines.first) > @indents.last)
+      while !@lines.empty? && (@lines.first.match?(/\A\s*\Z/) || get_indent(@lines.first) > @indents.last)
         next_line
         @stacks.last << [:newline]
       end
@@ -284,7 +284,7 @@ module Slim
 
       empty_lines = 0
       until @lines.empty?
-        if @lines.first =~ /\A\s*\Z/
+        if @lines.first.match?(/\A\s*\Z/)
           next_line
           result << [:newline]
           empty_lines += 1 if text_indent
@@ -319,7 +319,7 @@ module Slim
 
     def parse_broken_line
       broken_line = @line.strip
-      while broken_line =~ /[,\\]\Z/
+      while broken_line.match?(/[,\\]\Z/)
         expect_next_line
         broken_line << "\n" << @line
       end
@@ -478,8 +478,8 @@ module Slim
       # Attribute ends with space or attribute delimiter
       end_re = /\A[\s#{Regexp.escape outer_delimiter.to_s}]/
 
-      until @line.empty? || (count == 0 && @line =~ end_re)
-        if @line =~ /\A[,\\]\Z/
+      until @line.empty? || (count == 0 && @line.match?(end_re))
+        if @line.match?(/\A[,\\]\Z/)
           code << @line << "\n"
           expect_next_line
         else

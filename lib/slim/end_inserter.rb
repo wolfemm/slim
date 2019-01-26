@@ -27,14 +27,14 @@ module Slim
 
       exps.each do |exp|
         if control?(exp)
-          raise(Temple::FilterError, 'Explicit end statements are forbidden') if exp[2] =~ END_RE
+          raise(Temple::FilterError, 'Explicit end statements are forbidden') if exp[2].match?(END_RE)
 
           # Two control code in a row. If this one is *not*
           # an else block, we should close the previous one.
-          append_end(result) if prev_indent && exp[2] !~ ELSE_RE
+          append_end(result) if prev_indent && !exp[2].match?(ELSE_RE)
 
           # Indent if the control code starts a block.
-          prev_indent = exp[2] =~ IF_RE
+          prev_indent = exp[2].match?(IF_RE)
         elsif exp[0] != :newline && prev_indent
           # This is *not* a control code, so we should close the previous one.
           # Ignores newlines because they will be inserted after each line.

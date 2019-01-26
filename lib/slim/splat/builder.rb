@@ -30,7 +30,7 @@ module Slim
       end
 
       def attr(name, value)
-        if name =~ INVALID_ATTRIBUTE_NAME_REGEX
+        if name.match?(INVALID_ATTRIBUTE_NAME_REGEX)
           raise InvalidAttributeNameError, "Invalid attribute name '#{name}' was rendered"
         end
         if @attrs[name]

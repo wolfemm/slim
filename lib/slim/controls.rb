@@ -25,7 +25,7 @@ module Slim
     # @param [Array] content Temple expression
     # @return [Array] Compiled temple expression
     def on_slim_output(escape, code, content)
-      if code =~ IF_RE
+      if code.match?(IF_RE)
         tmp = unique_name
 
         [:multi,

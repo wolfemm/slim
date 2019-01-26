@@ -21,7 +21,7 @@ module Slim
           @stacks.last << [:slim, :text, :explicit, parse_text_block($', @indents.last + $1.size + 1)]
         else
           unless options[:implicit_text]
-            syntax_error! 'Illegal shortcut' if @line =~ @attr_shortcut_re
+            syntax_error! 'Illegal shortcut' if @line.match?(@attr_shortcut_re)
             super
           end
           # Found implicit smart text block.

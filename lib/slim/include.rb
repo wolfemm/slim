@@ -21,7 +21,7 @@ module Slim
       end
       raise Temple::FilterError, "'#{name}' not found in #{options[:include_dirs].join(':')}" unless file
       content = File.read(file)
-      if file =~ /\.slim\Z/i
+      if file.match?(/\.slim\Z/i)
         Thread.current[:slim_include_engine].call(content)
       else
         [:slim, :interpolate, content]
