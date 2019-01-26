@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'slim'
 require 'slim/logic_less'
 require 'slim/translator'

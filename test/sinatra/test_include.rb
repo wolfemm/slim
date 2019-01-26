@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'slim/include'
 
 require_relative 'helper.rb'

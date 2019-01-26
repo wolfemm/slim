@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Slim
   # Tilt template implementation for Slim
   # @api public

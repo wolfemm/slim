@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Slim
   class InvalidAttributeNameError < StandardError; end
   module Splat

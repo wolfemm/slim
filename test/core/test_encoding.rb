@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'helper'
 
 class TestSlimEncoding < TestSlim
@@ -8,10 +10,10 @@ class TestSlimEncoding < TestSlim
   end
 
   def test_binary
-    source = "| \xFF\xFF"
+    source = String.new("| \xFF\xFF")
     source.force_encoding(Encoding::BINARY)
 
-    result = "\xFF\xFF"
+    result = String.new("\xFF\xFF")
     result.force_encoding(Encoding::BINARY)
 
     out = render(source, default_encoding: 'binary')

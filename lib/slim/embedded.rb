@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Slim
   # @api private
   class TextCollector < Filter
     def call(exp)
-      @collected = ''
+      @collected = String.new
       super(exp)
       @collected
     end
@@ -30,7 +32,7 @@ module Slim
   # @api private
   class OutputProtector < Filter
     def call(exp)
-      @protect, @collected, @tag = [], '', "%#{object_id.abs.to_s(36)}%"
+      @protect, @collected, @tag = [], String.new, "%#{object_id.abs.to_s(36)}%"
       super(exp)
       @collected
     end

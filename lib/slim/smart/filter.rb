@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Slim
   module Smart
     # Perform newline processing in the

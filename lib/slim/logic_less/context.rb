@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Slim
   class LogicLess
     # @api private
@@ -16,7 +18,7 @@ module Slim
             yield
           else
             new_scope do
-              dict.inject('') do |result, d|
+              dict.inject(String.new) do |result, d|
                 scope.dict = d
                 result << yield
               end
